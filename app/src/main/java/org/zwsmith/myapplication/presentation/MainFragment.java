@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -116,11 +117,10 @@ public class MainFragment extends Fragment {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 // ...
             } else {
-                String errorCode = null;
                 if (response != null) {
-                    errorCode = Integer.toString(Objects.requireNonNull(response.getError()).getErrorCode());
+                    String message = Objects.requireNonNull(response.getError()).getMessage();
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
-                Log.d(TAG, errorCode);
             }
         }
     }
