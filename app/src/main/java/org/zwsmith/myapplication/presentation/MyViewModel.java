@@ -7,21 +7,19 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class MyViewModel {
-    public Observable<ArrayList<String>> viewInfoStream;
+    private Observable<Long> intervalStream =
+            Observable.interval(0L, 2L, TimeUnit.SECONDS);
 
-    MyViewModel() {
-        Observable<Long> intervalStream = Observable.interval(0L, 2L, TimeUnit.SECONDS);
-
-        viewInfoStream = intervalStream.map(
-                new Function<Long, ArrayList<String>>() {
-                    @Override
-                    public ArrayList<String> apply(Long aLong) throws Exception {
-                        return getAnimeTitles();
-                    }
+    public Observable<ArrayList<String>> viewInfoStream = intervalStream.map(
+            new Function<Long, ArrayList<String>>() {
+                @Override
+                public ArrayList<String> apply(Long aLong) throws Exception {
+                    return getAnimeTitles();
                 }
-        );
+            }
+    ).take(2);
 
-    }
+    MyViewModel() { }
 
     private ArrayList<String> getAnimeTitles() {
         ArrayList<String> newTitles = new ArrayList<>();
