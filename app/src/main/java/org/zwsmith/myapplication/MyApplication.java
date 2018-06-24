@@ -10,10 +10,6 @@ import org.zwsmith.myapplication.core.dependencyInjection.DaggerAppComponent;
 public class MyApplication extends Application {
     private AppComponent appComponent;
 
-    public static MyApplication get(Context context) {
-        return (MyApplication) context.getApplicationContext();
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();

@@ -39,7 +39,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appComponent = MyApplication.get(getActivity()).getAppComponent();
+        MyApplication myApplication =
+                (MyApplication) Objects.requireNonNull(getActivity()).getApplicationContext();
+        appComponent = myApplication.getAppComponent();
         mainViewModel = appComponent.getMainViewModel();
     }
 

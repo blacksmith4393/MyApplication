@@ -2,6 +2,8 @@ package org.zwsmith.myapplication.core.dependencyInjection;
 
 import android.app.Application;
 
+import org.zwsmith.myapplication.MyApplication;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -9,15 +11,15 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
-    private Application application;
+    private MyApplication application;
 
-    public AppModule(Application application) {
+    public AppModule(MyApplication application) {
         this.application = application;
     }
 
     @Provides
     @Singleton
-    public Application provideApplication() {
+    public MyApplication provideApplication() {
         return application;
     }
 }
