@@ -77,10 +77,7 @@ public class MainFragment extends Fragment {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    mainViewModel.createUser(user.getUid(), user.getDisplayName(), user.getEmail());
-                }
+                mainViewModel.createUser();
             } else {
                 if (response != null) {
                     String message = Objects.requireNonNull(response.getError()).getMessage();
@@ -96,7 +93,8 @@ public class MainFragment extends Fragment {
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .build(),
-                RC_SIGN_IN);
+                RC_SIGN_IN
+        );
     }
 
     public static MainFragment newInstance() {

@@ -1,5 +1,8 @@
 package org.zwsmith.myapplication.presentation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import javax.inject.Inject;
 
 public class MainViewModel {
@@ -10,7 +13,10 @@ public class MainViewModel {
         this.mainDataModel = mainDataModel;
     }
 
-    public void createUser(String userId, String displayName, String email) {
-        mainDataModel.createUser(userId, displayName, email);
+    public void createUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            mainDataModel.createUser(user.getUid(), user.getDisplayName(), user.getEmail());
+        }
     }
 }
