@@ -1,5 +1,7 @@
 apply plugin: "com.android.application"
 
+def implementationDependencies = rootProject.ext.dependencies
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -29,38 +31,38 @@ ext {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //UI
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:support-v4:$support_version"
-    implementation "com.android.support:support-media-compat:$support_version"
-    implementation "com.android.support:recyclerview-v7:$support_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation implementationDependencies.appcompat_v7
+    implementation implementationDependencies.support_v4
+    implementation implementationDependencies.support_media_compat
+    implementation implementationDependencies.recyclerview
+    implementation implementationDependencies.constraint_layout
 
     // Network
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation implementationDependencies.retrofit
+    implementation implementationDependencies.retrofit_converter_gson
+    implementation implementationDependencies.retrofit_rx_java
 
     //Serialization
-    implementation "com.google.code.gson:gson:$gson_version"
+    implementation implementationDependencies.gson
 
     // Dependency Injection
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation implementationDependencies.dagger2
+    implementation implementationDependencies.dagger2_android_support
+    annotationProcessor implementationDependencies.dagger2_android_processor
+    annotationProcessor implementationDependencies.dagger2_compiler
 
     //RX
-    implementation "io.reactivex.rxjava2:rxjava:2.1.14"
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
-    implementation "com.jakewharton.rxrelay2:rxrelay:2.0.0"
+    implementation implementationDependencies.rxjava
+    implementation implementationDependencies.rxandroid
+    implementation implementationDependencies.rxrelay
 
     //Util
-    implementation "joda-time:joda-time:2.9.9"
+    implementation implementationDependencies.joda_time
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
-    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation implementationDependencies.firebase_core
+    implementation implementationDependencies.firebase_ui_auth
+    implementation implementationDependencies.firebase_database
 
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test:runner:1.0.2"
