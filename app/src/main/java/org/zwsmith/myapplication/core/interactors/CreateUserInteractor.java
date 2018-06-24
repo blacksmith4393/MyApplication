@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class CreateUserInteractor {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Inject
     public CreateUserInteractor(UserRepository userRepository) {

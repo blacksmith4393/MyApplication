@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class UserRepository {
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Inject
     public UserRepository() {}
