@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'kotlin-android'
 
 def implementationDependencies = rootProject.ext.dependencies
 
@@ -30,6 +31,10 @@ ext {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    
     //UI
     implementation implementationDependencies.appcompat_v7
     implementation implementationDependencies.support_v4
