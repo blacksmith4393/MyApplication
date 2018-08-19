@@ -71,7 +71,7 @@ dependencies {
     //Firebase
     implementation implementationDependencies.firebase_core
     implementation implementationDependencies.firebase_ui_auth
-    implementation implementationDependencies.firebase_database
+    implementation implementationDependencies.firebase_firestore
 
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test:runner:1.0.2"

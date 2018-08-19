@@ -1,49 +1,45 @@
 package org.zwsmith.myapplication.core.repositories
 
 import android.util.Log
-
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 import org.zwsmith.myapplication.core.models.User
 
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.Exception
 
 @Singleton
-class UserRepository @Inject
-constructor() {
-    private val databaseReference = FirebaseDatabase.getInstance().reference
+class UserRepository @Inject constructor() {
+    private val databaseReference = FirebaseFirestore.getInstance()
 
     private val currentUser: User? = null
 
-    fun createUser(userId: String, displayName: String, email: String) {
-        val newUser = User(displayName, email, 0)
-        val userReference = databaseReference.child("users").child(userId)
-
-        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    val existingUser = dataSnapshot.getValue<User>(User::class.java!!)
-                    Log.i(TAG, "User already exists: " + existingUser!!.username)
-                } else {
-                    userReference
-                            .setValue(newUser)
-                            .addOnSuccessListener { Log.i(TAG, "Added newUser: " + newUser.email) }
+    fun createUser(firebaseUser: FirebaseUser) {
+        val user = hashMapOf<String, Any?>()
+                .apply {
+                    put(DISPLAY_NAME_KEY, firebaseUser.displayName)
+                    put(EMAIL_KEY, firebaseUser.email)
+                    put(WORKOUT_COUNT, 0)
                 }
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.d(TAG, "Database error: " + databaseError.message)
-            }
-        })
+        databaseReference.collection(USERS_COLLECTION_KEY)
+                .document(firebaseUser.uid)
+                .set(user)
+                .addOnSuccessListener {
+                    Log.i(TAG, "New user added")
+                }
+                .addOnFailureListener { e: Exception ->
+                    Log.e(TAG, "Error creating user: ${e.message}", e)
+                }
     }
 
     companion object {
         private val TAG = UserRepository::class.java.simpleName
+        private const val DISPLAY_NAME_KEY = "display_name"
+        private const val EMAIL_KEY = "email"
+        private const val WORKOUT_COUNT = "workout_count"
+        private const val USERS_COLLECTION_KEY = "users"
     }
 }

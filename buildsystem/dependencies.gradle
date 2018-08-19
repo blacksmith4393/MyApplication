@@ -7,6 +7,9 @@ ext {
     def dagger_version = "2.15"
 
 
+    def firebase_core_version = "16.0.1"
+    def firebase_ui_auth_version = "4.0.0"
+    def firebase_firestore_version = "17.1.0"
     dependencies = [
 
             appcompat_v7 : "com.android.support:appcompat-v7:$support_version",
@@ -33,8 +36,8 @@ ext {
 
             joda_time : "joda-time:joda-time:2.9.9",
 
-            firebase_core : 'com.google.firebase:firebase-core:16.0.1',
-            firebase_ui_auth : 'com.firebaseui:firebase-ui-auth:4.0.0',
-            firebase_database : 'com.google.firebase:firebase-database:16.0.1'
+            firebase_core : "com.google.firebase:firebase-core:$firebase_core_version",
+            firebase_ui_auth : "com.firebaseui:firebase-ui-auth:$firebase_ui_auth_version",
+            firebase_firestore : "com.google.firebase:firebase-firestore:$firebase_firestore_version"
     ]
 }
