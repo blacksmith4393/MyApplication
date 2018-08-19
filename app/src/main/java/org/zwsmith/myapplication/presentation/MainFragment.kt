@@ -23,32 +23,28 @@ import java.util.Collections
 import java.util.Objects
 
 import android.app.Activity.RESULT_OK
+import com.firebase.ui.auth.FirebaseUiException
 
 class MainFragment : Fragment() {
 
     private var appComponent: AppComponent? = null
     private var mainViewModel: MainViewModel? = null
-    private val authProviders = listOf<IdpConfig>(AuthUI.IdpConfig.GoogleBuilder().build())
+    private val authProviders = listOf(AuthUI.IdpConfig.GoogleBuilder().build())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myApplication = Objects.requireNonNull<FragmentActivity>(activity).getApplicationContext() as MyApplication
+        val myApplication = activity!!.applicationContext as MyApplication
         appComponent = myApplication.appComponent
         mainViewModel = appComponent!!.mainViewModel
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val actionButton = view.findViewById<Button>(R.id.primary_action_button)
-
         actionButton.setOnClickListener { startSignInActivity(authProviders) }
 
     }
@@ -62,9 +58,8 @@ class MainFragment : Fragment() {
             if (resultCode == RESULT_OK) {
                 mainViewModel!!.createUser()
             } else {
-                if (response != null) {
-                    val message = Objects.requireNonNull<FirebaseUiException>(response.error).message
-                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                response?.error?.message.let {
+                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
                 }
             }
         }

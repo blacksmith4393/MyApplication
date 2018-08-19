@@ -11,9 +11,6 @@ class MainViewModel @Inject
 internal constructor(private val createUserInteractor: CreateUserInteractor) {
 
     fun createUser() {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            createUserInteractor.createUser(user.uid, user.displayName, user.email)
-        }
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
     }
 }

@@ -22,7 +22,7 @@ constructor() {
     private val currentUser: User? = null
 
     fun createUser(userId: String, displayName: String, email: String) {
-        val newUser = User(displayName, email)
+        val newUser = User(displayName, email, 0)
         val userReference = databaseReference.child("users").child(userId)
 
         userReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -44,6 +44,6 @@ constructor() {
     }
 
     companion object {
-        private val TAG = UserRepository::class.java!!.getSimpleName()
+        private val TAG = UserRepository::class.java.simpleName
     }
 }

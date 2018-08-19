@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 def implementationDependencies = rootProject.ext.dependencies
 
@@ -53,8 +54,8 @@ dependencies {
     // Dependency Injection
     implementation implementationDependencies.dagger2
     implementation implementationDependencies.dagger2_android_support
-    annotationProcessor implementationDependencies.dagger2_android_processor
-    annotationProcessor implementationDependencies.dagger2_compiler
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    kapt implementationDependencies.dagger2_compiler
 
     //RX
     implementation implementationDependencies.rxjava

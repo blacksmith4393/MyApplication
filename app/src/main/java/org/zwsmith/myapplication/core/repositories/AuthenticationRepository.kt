@@ -8,9 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationRepository @Inject
-internal constructor() {
+class AuthenticationRepository @Inject constructor() {
     private val googleIdpConfig = AuthUI.IdpConfig.GoogleBuilder().build()
-    private val authProviders = listOf<IdpConfig>(googleIdpConfig)
-
+    private val authProviders: List<AuthUI.IdpConfig> = listOf(googleIdpConfig)
 }

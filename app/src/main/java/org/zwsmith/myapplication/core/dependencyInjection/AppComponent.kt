@@ -8,7 +8,7 @@ import javax.inject.Singleton
 import dagger.Component
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = [AppModule::class])
 interface AppComponent {
     val application: MyApplication
     val mainViewModel: MainViewModel
