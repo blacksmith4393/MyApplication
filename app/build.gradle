@@ -1,8 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-sourceSets{ main.java.srcDirs += 'src/main/kotlin/' }
+apply plugin: 'com.google.gms.google-services'
 
 def implementationDependencies = rootProject.ext.dependencies
 
@@ -22,14 +21,6 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-}
-
-ext {
-    support_version = "27.1.1"
-    constraint_layout_version = "1.1.2"
-    retrofit_version = "2.4.0"
-    gson_version = "2.8.5"
-    dagger_version = "2.15"
 }
 
 dependencies {
@@ -55,10 +46,8 @@ dependencies {
 
     // Dependency Injection
     implementation implementationDependencies.dagger2
-    implementation implementationDependencies.dagger2_android
     implementation implementationDependencies.dagger2_android_support
     kapt implementationDependencies.dagger2_compiler
-    kapt implementationDependencies.dagger2_android_processor
 
     //RX
     implementation implementationDependencies.rxjava
@@ -77,6 +66,3 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:1.0.2"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
 }
-
-
-apply plugin: 'com.google.gms.google-services'
